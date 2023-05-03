@@ -35,7 +35,7 @@ There are 16,598 records in this dataset. To better understand the game industry
 There is one exploratory notebook available to see the my detail works
 
 ## Medium Blog Post 
-The main findings of the code can be found at the Medium Blog post available [here](https://medium.com/swlh/how-data-will-make-you-drink-wine-differently-c59d669831a1)
+The main findings of the code can be found at the Medium Blog post available [here](https://medium.com/@ohioa4/video-game-sales-interesting-insights-6af263931886)
 
 ## Licensing, Authors, Acknowledgements, etc.
 Acknowledgement should go to [Kaggle](https://www.kaggle.com/datasets/gregorut/videogamesales) for providing the dataset. 
