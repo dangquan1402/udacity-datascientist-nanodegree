@@ -43,7 +43,7 @@ def build_model():
     ])
     # pipeline1.get_params().keys()
     parameters_grid = {
-                'classifier__estimator__n_estimators': [10]}
+                'classifier__estimator__n_estimators': [10, 20, 50]}
 
 
     cv = GridSearchCV(pipeline, param_grid=parameters_grid, scoring='f1_micro', n_jobs=-1)
