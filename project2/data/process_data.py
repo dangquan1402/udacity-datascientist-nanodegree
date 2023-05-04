@@ -61,6 +61,8 @@ def clean_data(df):
 
     # drop duplicates
     df.drop_duplicates(inplace=True)
+    df['related'] = df['related'].map(lambda x: 1 if x == 2 else x)
+    df['related'] = df['related'].astype("int")
 
     return df
 

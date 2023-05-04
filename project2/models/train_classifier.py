@@ -5,6 +5,7 @@ import sys
 import nltk
 import numpy as np
 import pandas as pd
+from nltk.stem import WordNetLemmatizer
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.metrics import classification_report
@@ -15,6 +16,14 @@ from sqlalchemy import create_engine
 
 
 def load_data(database_filepath):
+    """load data from database
+
+    Args:
+        database_filepath (str): database file path
+
+    Returns:
+        X, y: data input for sklearn model
+    """
     # load data from database
     engine = create_engine(f'sqlite:///{database_filepath}')
     df = pd.read_sql_table("disaster_response_db_table", con=engine.connect())
@@ -30,10 +39,20 @@ def tokenize(text):
     text = re.sub(r"[^\w\d]", " ", text)
     text = re.sub(r"\s+", " ", text)
     tokens = nltk.word_tokenize(text)
+    lemmatizer = WordNetLemmatizer()
+    clean_tokens = []
+    for tok in tokens:
+        clean_tok = lemmatizer.lemmatize(tok).lower().strip()
+        clean_tokens.append(clean_tok)
     return tokens
 
 
 def build_model():
+    """return gridsearchcv 
+
+    Returns:
+        Sklearnmodel: cross validation pipeline
+    """
     pipeline = Pipeline([
     ('text_pipeline', Pipeline([
                 ('count_vectorizer', CountVectorizer(tokenizer=tokenize)),
@@ -51,12 +70,25 @@ def build_model():
 
 
 def evaluate_model(model, X_test, Y_test):
+    """evaludate model
+
+    Args:
+        model (sklearnmodel): sklearn model
+        X_test (np.array): X_test data
+        Y_test (np.array): y_test data
+    """
     y_pred = model.predict(X_test)
     for index, column in enumerate(Y_test):
         print(column, classification_report(Y_test[column], y_pred[:, index]))
 
 
 def save_model(model, model_filepath):
+    """save model 
+
+    Args:
+        model (sklearnmodel): sklearn model
+        model_filepath (str): model file path
+    """
     pickle.dump(model, open(model_filepath, 'wb'))
 
 
