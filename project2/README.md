@@ -4,9 +4,9 @@
 1. Run the following commands in the project's root directory to set up your database and model.
 
     - To run ETL pipeline that cleans data and stores in database
-        `python data/process_data.py data/disaster_messages.csv data/disaster_categories.csv data/DisasterResponse.db`
+        `python data/process_data.py data/messages.csv data/categories.csv data/disaster_response_db.db`
     - To run ML pipeline that trains classifier and saves
-        `python models/train_classifier.py data/DisasterResponse.db models/classifier.pkl`
+        `python models/train_classifier.py data/disaster_response_db.db models/classifier.pkl`
 
 2. Go to `app` directory: `cd app`
 
@@ -55,3 +55,9 @@ data
 - dumps trained model to a pickle file
 
 ## Flask app
+
+![image info](./images/overview.png)
+![image info](./images/overview_2.png)
+![image info](./images/response.png)
+
+

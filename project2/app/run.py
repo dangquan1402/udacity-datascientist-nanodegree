@@ -27,7 +27,7 @@ engine = create_engine('sqlite:///../data/disaster_response_db.db')
 df = pd.read_sql_table('disaster_response_db_table', engine.connect())
 
 # load model
-model = joblib.load("../models/model.pkl")
+model = joblib.load("../models/classifier.pkl")
 
 
 # index webpage displays cool visuals and receives user input text for model
@@ -39,6 +39,10 @@ def index():
     # TODO: Below is an example - modify to extract data for your own visuals
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
+
+    category_df = df.drop(['id','message','original','genre'], axis=1)
+    category_counts = category_df.sum(axis=0)
+    category_names = category_df.columns
     
     # create visuals
     # TODO: Below is an example - modify to create your own visuals
@@ -58,6 +62,24 @@ def index():
                 },
                 'xaxis': {
                     'title': "Genre"
+                }
+            }
+        },
+         {
+            'data': [
+                Bar(
+                    x=category_names,
+                    y=category_counts
+                )
+            ],
+
+            'layout': {
+                'title': 'Distribution of Message Categories',
+                'yaxis': {
+                    'title': "Count"
+                },
+                'xaxis': {
+                    'title': "Category"
                 }
             }
         }
