@@ -41,3 +41,16 @@ When the app runs successfully, it can be accessed by this link
 `http://localhost:8501`
 - ![image](images/sample_app.jpg)
 
+# Conclusion
+In this project, I have built successfully a image classification. For using `torchvision` library, it's easier than before, we dont need to build a model from scratch. Deep learning becomes easier for training and fine-tuning. In my case, I just use google-colab for training, and it takes less than 20 minutes for building a custom model on custom dataset. 
+
+To summarize, there are steps in this project:
+- Data preparation (training and testing)
+- Dataset class
+- Model (custom model using `torchvision`)
+- Metric, loss, optimizer
+- Model training and evaluation
+
+
+# Acknowledgment
+I'd like to acknowledge Udacity, Kaggle, Google Colab for the project and workspace.

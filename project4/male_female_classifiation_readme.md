@@ -1,5 +1,8 @@
 # Overview
 In this project, I will build classification model on male/female dataset from [Kaggle dataset](https://www.kaggle.com/datasets/cashutosh/gender-classification-dataset). This project aims to classify gender based on input image. There are two classes: male and female. 
+
+## Problem domain
+Computer vision, for more specifically, face iamges of male/female
 # Description of Input Data
 About dataset
 
@@ -8,7 +11,7 @@ The data set is of cropped images of male and female . It is split into training
 Images do not have same shape, then resize or normalized should be included.
 
 #  Strategy for solving the problem
-By using pretrained model from library `torchvision` to fine-tune in our dataset. There are many models avalable there. In this project, `Alexnet` will be used.
+By using pretrained model from library `torchvision` to fine-tune in our dataset. There are many models avalable there. In this project, `Alexnet` will be used. Input of this model is (3, 64, 64): 3 channel image, output shape is 2, male/female classes.
 
 # Discussion of the expected solution
 The output of this is to build succesfully a model to classify gender based on images.
@@ -17,9 +20,16 @@ The output of this is to build succesfully a model to classify gender based on i
 The metric used in this problem is accuracy.
 $${\displaystyle {\text{Accuracy}}={\frac {TP+TN}{TP+TN+FP+FN}}}$$
 
+This is a classification problem, accuracy, f1-score can be used for evaluating model. Since propotion of male/female is nearly 50%, then using accuracy for this problem is suitable.
 # Data processing
 Since, the input shape of images are not the same, then resize is used. Here I am using 
-
+```
+train_transform = v_transforms.Compose(
+    [v_transforms.Resize((64, 64)),
+     v_transforms.ToTensor(),
+    ])
+```
+This makes sure the input before putting to model having the shape (3, 64, 64)
 # Modeling
 In this project, [Alexnet](https://pytorch.org/vision/main/models/generated/torchvision.models.alexnet.html) is used. Below is the detail of model.
 ```
@@ -72,9 +82,15 @@ criterion = torch.nn.CrossEntropyLoss()
 - ![image](images/accuracy.png)
 - ![image](images/losses.png)]
 
+Based on the accuracy and losses plots, I chose epoch 10 output for final model.
+The accuracy on validation test is about 96%.
 
 # Conclusion
-In this project, I have built successfully a image classification.
+In this project, I have built successfully a image classification. For using `torchvision` library, it's easier than before, we dont need to build a model from scratch. Deep learning becomes easier for training and fine-tuning. In my case, I just use google-colab for training, and it takes less than 20 minutes for building a custom model on custom dataset. 
+
+To summarize, there are steps in this project:
+- Data preparation (training and testing)
+- Dataset class (custom dataset, in this project, this is )
 
 # Improvement
 Since the model size is small, we can use a bigger model to having higher accuracy, or employ another technique for enrich data (image augmentation)
