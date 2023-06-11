@@ -1,5 +1,5 @@
 # Classify Male/Female image
-
+[Github link](https://github.com/dangquan1402/udacity-datascientist-nanodegree/tree/main/project4)
 ## Installations
  - NumPy
  - Pandas
@@ -25,7 +25,8 @@ The project involved:
 
 
 ## File Descriptions
-- This is one jupyter notebook file and one html file containing details step by step to build model
+- The detail can be seen in `male_female_classification_readme.md` file.
+- It can also run step by step in the notebook as well to see how it works.
 
 
 ## Result
