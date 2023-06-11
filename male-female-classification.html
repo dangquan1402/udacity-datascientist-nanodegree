@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>d0747877d94343bb8102aff7e967842f</title>
+  <title>cac629ae188b47a985d9ce90f34b8b8f</title>
   <style>
     html {
       line-height: 1.5;
@@ -315,45 +315,55 @@ Male:	 5841
 <section id="helper-function" class="cell markdown" id="iaXG1q2_Kd2t">
 <h1>Helper function</h1>
 </section>
+<div class="cell markdown">
+<p>There are some helper function</p>
+<ul>
+<li>display_images: for showing images</li>
+<li>AverageMeter: this class for compute and store metric/loss</li>
+<li>get_accuracy: for calculating accuracy</li>
+</ul>
+</div>
 <div class="cell code" data-execution_count="7" id="7vK6WQuSK9O9">
 <div class="sourceCode" id="cb10"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> display_images(images, labels): </span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    f, ax <span class="op">=</span> plt.subplots(<span class="dv">4</span>,<span class="dv">4</span>, figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">15</span>))</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, image_id <span class="kw">in</span> <span class="bu">enumerate</span>(images[:<span class="dv">16</span>]):</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        image <span class="op">=</span> images[i]</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        label <span class="op">=</span> labels[i]</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>        ax[i<span class="op">//</span><span class="dv">4</span>, i<span class="op">%</span><span class="dv">4</span>].imshow(image.numpy().transpose(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">0</span>)) </span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        ax[i<span class="op">//</span><span class="dv">4</span>, i<span class="op">%</span><span class="dv">4</span>].axis(<span class="st">&#39;off&#39;</span>)</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>        ax[i<span class="op">//</span><span class="dv">4</span>, i<span class="op">%</span><span class="dv">4</span>].set_title(<span class="ss">f&quot;Class: </span><span class="sc">{</span>label<span class="sc">}</span><span class="ss">&quot;</span>)</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    plt.show() </span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;showing image along with label&quot;&quot;&quot;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    f, ax <span class="op">=</span> plt.subplots(<span class="dv">4</span>,<span class="dv">4</span>, figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">15</span>))</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, image_id <span class="kw">in</span> <span class="bu">enumerate</span>(images[:<span class="dv">16</span>]):</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        image <span class="op">=</span> images[i]</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>        label <span class="op">=</span> labels[i]</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        ax[i<span class="op">//</span><span class="dv">4</span>, i<span class="op">%</span><span class="dv">4</span>].imshow(image.numpy().transpose(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">0</span>)) </span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>        ax[i<span class="op">//</span><span class="dv">4</span>, i<span class="op">%</span><span class="dv">4</span>].axis(<span class="st">&#39;off&#39;</span>)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>        ax[i<span class="op">//</span><span class="dv">4</span>, i<span class="op">%</span><span class="dv">4</span>].set_title(<span class="ss">f&quot;Class: </span><span class="sc">{</span>label<span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    plt.show() </span>
 <span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> AverageMeter:</span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;Computes and stores the average and current value&quot;&quot;&quot;</span></span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.reset()</span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> reset(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.val <span class="op">=</span> <span class="fl">0.0</span></span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.avg <span class="op">=</span> <span class="fl">0.0</span></span>
-<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.<span class="bu">sum</span> <span class="op">=</span> <span class="fl">0.0</span></span>
-<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.count <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> update(<span class="va">self</span>, val: <span class="bu">float</span>, n: <span class="bu">int</span> <span class="op">=</span> <span class="dv">1</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
-<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.val <span class="op">=</span> val</span>
-<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.<span class="bu">sum</span> <span class="op">+=</span> val <span class="op">*</span> n</span>
-<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.count <span class="op">+=</span> n</span>
-<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.avg <span class="op">=</span> <span class="va">self</span>.<span class="bu">sum</span> <span class="op">/</span> <span class="va">self</span>.count</span>
-<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> AverageMeter:</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;Computes and stores the average and current value&quot;&quot;&quot;</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.reset()</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> reset(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.val <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.avg <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.<span class="bu">sum</span> <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.count <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> update(<span class="va">self</span>, val: <span class="bu">float</span>, n: <span class="bu">int</span> <span class="op">=</span> <span class="dv">1</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.val <span class="op">=</span> val</span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.<span class="bu">sum</span> <span class="op">+=</span> val <span class="op">*</span> n</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.count <span class="op">+=</span> n</span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.avg <span class="op">=</span> <span class="va">self</span>.<span class="bu">sum</span> <span class="op">/</span> <span class="va">self</span>.count</span>
 <span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_accuracy(labels, outputs):</span>
-<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>    _, predicted <span class="op">=</span> torch.<span class="bu">max</span>(outputs, <span class="dv">1</span>)</span>
-<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (labels <span class="op">==</span> predicted).<span class="bu">sum</span>() <span class="op">/</span> labels.shape[<span class="dv">0</span>]</span></code></pre></div>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_accuracy(labels, outputs):</span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;Calculate accuracy&quot;&quot;&quot;</span></span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>    _, predicted <span class="op">=</span> torch.<span class="bu">max</span>(outputs, <span class="dv">1</span>)</span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (labels <span class="op">==</span> predicted).<span class="bu">sum</span>() <span class="op">/</span> labels.shape[<span class="dv">0</span>]</span></code></pre></div>
 </div>
 <section id="dataloader" class="cell markdown" id="G_05qom9LEIc">
 <h1>DataLoader</h1>
@@ -364,6 +374,10 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a h
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> PIL <span class="im">import</span> Image</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torchvision.transforms <span class="im">as</span> v_transforms</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torch.utils.data <span class="im">import</span> DataLoader</span></code></pre></div>
+</div>
+<div class="cell markdown">
+<p>Load and encode image class. Here class 0 for female, class 1 for
+male.</p>
 </div>
 <div class="cell code" data-execution_count="9" id="stoN51zgLREf">
 <div class="sourceCode" id="cb12"><pre
@@ -389,6 +403,10 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a h
 <span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>validation_df <span class="op">=</span> pd.concat((validation_male_df, validation_female_df), axis<span class="op">=</span><span class="dv">0</span>)</span></code></pre></div>
 </div>
+<div class="cell markdown">
+<p>Show train and validation size, here, training: 470009, and
+validation: 11649</p>
+</div>
 <div class="cell code" data-execution_count="10"
 data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}"
 id="jWc7v1bIL9Uq" data-outputId="a242793b-8908-48c3-e9bb-6644f97c2dd9">
@@ -397,6 +415,9 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a h
 <div class="output execute_result" data-execution_count="10">
 <pre><code>((47009, 2), (11649, 2))</code></pre>
 </div>
+</div>
+<div class="cell markdown">
+<p>This class created for loading data then putting to model</p>
 </div>
 <div class="cell code" data-execution_count="11" id="sWOyUdYXLGYX">
 <div class="sourceCode" id="cb15"><pre
@@ -422,6 +443,9 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a h
 id="RJPneRMgMblr">
 <h2>Load sample images</h2>
 </section>
+<div class="cell markdown">
+<p>Let's see some sample images</p>
+</div>
 <div class="cell code" data-execution_count="12"
 data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:149}"
 id="wSZsp2m_MdeR" data-outputId="1922738b-509b-4963-fdcf-2761b21e0702">
@@ -435,7 +459,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a h
 </div>
 <div class="output execute_result" data-execution_count="12">
 <p><img
-src="vertopal_867817de324e4b28b913772a00fc92e1/334c4aa61ef70930a958fb93a0dd30eeb6d393c0.png" /></p>
+src="vertopal_481d8aea3d83438094e7403a071fad0e/334c4aa61ef70930a958fb93a0dd30eeb6d393c0.png" /></p>
 </div>
 </div>
 <div class="cell code" data-execution_count="13"
@@ -451,12 +475,16 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a h
 </div>
 <div class="output execute_result" data-execution_count="13">
 <p><img
-src="vertopal_867817de324e4b28b913772a00fc92e1/ddd697f4abc7a6a1ec6fd236b1e97af9c2f4d9cf.png" /></p>
+src="vertopal_481d8aea3d83438094e7403a071fad0e/ddd697f4abc7a6a1ec6fd236b1e97af9c2f4d9cf.png" /></p>
 </div>
 </div>
 <section id="transformation" class="cell markdown" id="elDj_mIIMldr">
 <h1>Transformation</h1>
 </section>
+<div class="cell markdown">
+<p>Since, images size are varying. Resize must be employeed for make
+sure, all of images have same size before putting to model.</p>
+</div>
 <div class="cell code" data-execution_count="14" id="yFdMO9nhMypK">
 <div class="sourceCode" id="cb20"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>train_transform <span class="op">=</span> v_transforms.Compose(</span>
@@ -507,7 +535,7 @@ id="ynR99NIpNJQQ" data-outputId="ebdb9b9b-a541-47f2-c566-e63da2eede62">
 class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>display_images(images, labels)</span></code></pre></div>
 <div class="output display_data">
 <p><img
-src="vertopal_867817de324e4b28b913772a00fc92e1/a1df1e38384cbb4a2b48ac77afe800b993aba73b.png" /></p>
+src="vertopal_481d8aea3d83438094e7403a071fad0e/a1df1e38384cbb4a2b48ac77afe800b993aba73b.png" /></p>
 </div>
 </div>
 <div class="cell code" data-execution_count="20" id="L6TzsERYNcNi">
@@ -571,6 +599,16 @@ Estimated Total Size (MB): 233.96
 </code></pre>
 </div>
 </div>
+<div class="cell markdown">
+<p>Above is summarization of alexnetmode. It contains parameter size,
+and model size as well.</p>
+</div>
+<div class="cell markdown">
+<p>Now, let's creating a model based on alexnet. Here, we have the
+number of class is 2. First, we get the base model from alexnet, then
+flatten these feature, then use a fully connected layer with output size
+is 2 (number of classes).</p>
+</div>
 <div class="cell code" data-execution_count="25" id="OUV3XfvUOSks">
 <div class="sourceCode" id="cb33"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> SamplePretrainedModel(nn.Module):</span>
@@ -614,6 +652,11 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a h
 <section id="trainer" class="cell markdown" id="Y02421mnSZoe">
 <h1>Trainer</h1>
 </section>
+<div class="cell markdown">
+<p>This class for training and evaluation as well. After each epoch,
+model will be evaluated on evaluation data, the result will be
+logged.</p>
+</div>
 <div class="cell code" data-execution_count="33" id="EYNft5hFPL3T">
 <div class="sourceCode" id="cb38"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a></span>
@@ -1043,7 +1086,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb124-1"><a 
 <span id="cb124-3"><a href="#cb124-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
 <div class="output display_data">
 <p><img
-src="vertopal_867817de324e4b28b913772a00fc92e1/4704eac2c98a1995831f43231ec4d3c37f34cb21.png" /></p>
+src="vertopal_481d8aea3d83438094e7403a071fad0e/4704eac2c98a1995831f43231ec4d3c37f34cb21.png" /></p>
 </div>
 </div>
 <div class="cell code" data-execution_count="40"
@@ -1055,8 +1098,18 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb125-1"><a 
 <span id="cb125-3"><a href="#cb125-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
 <div class="output display_data">
 <p><img
-src="vertopal_867817de324e4b28b913772a00fc92e1/b188ecdd1edd7ba885637f9ac47faa45a28b7911.png" /></p>
+src="vertopal_481d8aea3d83438094e7403a071fad0e/b188ecdd1edd7ba885637f9ac47faa45a28b7911.png" /></p>
 </div>
+</div>
+<div class="cell markdown">
+<p>Looking at two above plots, we can see our model behaves the best at
+epoch 9-10, with the accuracy is nearly 96%. After that, the accuracy
+drop, it can be explained by overfitting, model just focuses on training
+data, loose the generalization. Finally, the output of epoch 10 is used
+for hosting application.</p>
+</div>
+<div class="cell markdown">
+
 </div>
 <div class="cell code" id="g6atFFcJU7eh">
 <div class="sourceCode" id="cb126"><pre
