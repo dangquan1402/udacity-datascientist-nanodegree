@@ -90,7 +90,10 @@ In this project, I have built successfully a image classification. For using `to
 
 To summarize, there are steps in this project:
 - Data preparation (training and testing)
-- Dataset class (custom dataset, in this project, this is )
+- Dataset class
+- Model (custom model using `torchvision`)
+- Metric, loss, optimizer
+- Model training and evaluation
 
 # Improvement
 Since the model size is small, we can use a bigger model to having higher accuracy, or employ another technique for enrich data (image augmentation)
